@@ -5,16 +5,18 @@ public class Hotels {
     int weekDayRate;
     int weekendRate;
     int totalPrice;
+    int hotelRatings;
 
     public Hotels(){
 
     }
 
 
-    public Hotels(String hotelName, int weekDayRate, int weekendRate) {
+    public Hotels(String hotelName, int weekDayRate, int weekendRate, int hotelRatings) {
         this.hotelName = hotelName;
         this.weekDayRate=weekDayRate;
         this.weekendRate=weekendRate;
+        this.hotelRatings=hotelRatings;
     }
 
 
@@ -48,6 +50,14 @@ public class Hotels {
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public int getHotelRatings() {
+        return hotelRatings;
+    }
+
+    public void setHotelRatings(int hotelRatings) {
+        this.hotelRatings = hotelRatings;
+    }
     @Override
     public String toString() {
         return "Hotels{" +
@@ -55,6 +65,7 @@ public class Hotels {
                 ", weekDayRate=" + weekDayRate +
                 ", weekendRate=" + weekendRate +
                 ", totalPrice=" + totalPrice +
+                ", hotelRatings=" + hotelRatings +
                 '}';
     }
 }
