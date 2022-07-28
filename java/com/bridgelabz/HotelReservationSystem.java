@@ -34,6 +34,8 @@ public class HotelReservationSystem {
         cheapestHotelForWeekend("2020-09-11", "2020-09-12");
         cheapestBestRatedHotel("2020-09-11", "2020-09-12");
         bestRatedHotel("2020-09-11", "2020-09-12");
+        cheapestHotelForRewardCustomersOnWeekDays("2020-09-11", "2020-09-12");
+        cheapestHotelForRewardCustomersOnWeekend("2020-09-11", "2020-09-12");
         System.out.println(" ");
     }
 
@@ -92,7 +94,37 @@ public class HotelReservationSystem {
         System.out.println(bestRatedHotel);
         Hotels hotels = new Hotels();
         hotels.setHotelName(bestRatedHotel.getHotelName());
+        System.out.println(" ");
 
+    }
+
+    public static void cheapestHotelForRewardCustomersOnWeekDays(String startDate, String endDate) {
+        LocalDate startDateFormat = LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
+        LocalDate endDateFormat = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
+        int numberOfDays = endDateFormat.getDayOfMonth() - startDateFormat.getDayOfMonth();
+        Hotels cheapestHotelForRewardCustomersOnWeekDays = specialHotelList.stream().min(Comparator.comparing(Hotels::getWeekDayRate)).orElse(null);
+        System.out.println("Cheapest hotel for special customers on weekdays is :");
+        System.out.println(cheapestHotelForRewardCustomersOnWeekDays);
+        Hotels hotels = new Hotels();
+        hotels.setHotelName(cheapestHotelForRewardCustomersOnWeekDays.getHotelName());
+        hotels.setTotalPrice(cheapestHotelForRewardCustomersOnWeekDays.getWeekDayRate() * numberOfDays);
+        System.out.println(numberOfDays + " days stayed in hotel ");
+        System.out.println("Total Rate for " + numberOfDays + " day's during weekday is : " + hotels.getTotalPrice());
+        System.out.println(" ");
+    }
+
+    public static void cheapestHotelForRewardCustomersOnWeekend(String startDate, String endDate) {
+        LocalDate startDateFormat = LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
+        LocalDate endDateFormat = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
+        int numberOfDays = endDateFormat.getDayOfMonth() - startDateFormat.getDayOfMonth();
+        Hotels cheapestHotelForSpecialCustomersOnWeekend = specialHotelList.stream().min(Comparator.comparing(Hotels::getWeekendRate)).orElse(null);
+        System.out.println("Cheapest Hotel for special customers on weekend is :");
+        System.out.println(cheapestHotelForSpecialCustomersOnWeekend);
+        Hotels hotels = new Hotels();
+        hotels.setHotelName(cheapestHotelForSpecialCustomersOnWeekend.getHotelName());
+        hotels.setTotalPrice(cheapestHotelForSpecialCustomersOnWeekend.getWeekendRate() * numberOfDays);
+        System.out.println(numberOfDays + " days stayed in hotel ");
+        System.out.println("Total Rate for " + numberOfDays + " day's during weekend is : " + hotels.getTotalPrice());
 
     }
 }
