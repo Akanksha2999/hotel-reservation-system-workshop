@@ -22,6 +22,7 @@ public class HotelReservationSystem {
         cheapestHotelForWeekdays("2020-09-10", "2020-09-11");
         cheapestHotelForWeekend("2020-09-11", "2020-09-12");
         cheapestBestRatedHotel("2020-09-11", "2020-09-12");
+        bestRatedHotel("2020-09-11", "2020-09-12");
     }
 
     public static void cheapestHotelForWeekdays(String startDate, String endDate) {
@@ -59,13 +60,27 @@ public class HotelReservationSystem {
         LocalDate startDateFormat = LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
         LocalDate endDateFormat = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
         int numberOfDays = endDateFormat.getDayOfMonth() - startDateFormat.getDayOfMonth();
-        Hotels cheapestBestRatedHotel = hotelsList.stream().filter(n -> n.hotelRatings > 4).min(Comparator.comparing(Hotels::getHotelRatings)).orElse(null);
+        Hotels cheapestBestRatedHotel = hotelsList.stream().filter(n -> n.hotelRatings == 4).min(Comparator.comparing(Hotels::getHotelRatings)).orElse(null);
         System.out.println("Cheapest best rated Hotel is :");
         System.out.println(cheapestBestRatedHotel);
         Hotels hotels = new Hotels();
         hotels.setHotelName(cheapestBestRatedHotel.getHotelName());
         hotels.setTotalPrice(cheapestBestRatedHotel.getWeekendRate() * numberOfDays);
         System.out.println("Total Rate for " + numberOfDays + " day's during weekend is : " + hotels.getTotalPrice());
+        System.out.println(" ");
+
+    }
+
+    public static void bestRatedHotel(String startDate, String endDate) {
+        LocalDate startDateFormat = LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
+        LocalDate endDateFormat = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
+        int numberOfDays = endDateFormat.getDayOfMonth() - startDateFormat.getDayOfMonth();
+        Hotels bestRatedHotel = hotelsList.stream().filter(n -> n.hotelRatings > 4).min(Comparator.comparing(Hotels::getHotelRatings)).orElse(null);
+        System.out.println("Best rated Hotel is :");
+        System.out.println(bestRatedHotel);
+        Hotels hotels = new Hotels();
+        hotels.setHotelName(bestRatedHotel.getHotelName());
+
 
     }
 }
