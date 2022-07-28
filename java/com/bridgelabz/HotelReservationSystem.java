@@ -11,9 +11,9 @@ public class HotelReservationSystem {
 
     public static void main(String[] args) {
         System.out.println("Welcome to Hotel Reservation System Project");
-        Hotels lakewood = new Hotels("Lakewood", 110,90,3);
-        Hotels bridgewood = new Hotels("Bridgewood", 150,50,4);
-        Hotels ridgewood = new Hotels("Ridgewood", 220,150,5);
+        Hotels lakewood = new Hotels("Lakewood", 110, 90,200, 3);
+        Hotels bridgewood = new Hotels("Bridgewood", 150, 50,200, 4);
+        Hotels ridgewood = new Hotels("Ridgewood", 220, 150,370, 5);
         hotelsList.add(lakewood);
         hotelsList.add(bridgewood);
         hotelsList.add(ridgewood);
@@ -21,6 +21,7 @@ public class HotelReservationSystem {
         System.out.println(" ");
         cheapestHotelForWeekdays("2020-09-10", "2020-09-11");
         cheapestHotelForWeekend("2020-09-11", "2020-09-12");
+        cheapestBestRatedHotel("2020-09-11", "2020-09-12");
     }
 
     public static void cheapestHotelForWeekdays(String startDate, String endDate) {
@@ -34,7 +35,7 @@ public class HotelReservationSystem {
         hotels.setHotelName(cheapestHotelForWeekdays.getHotelName());
         hotels.setTotalPrice(cheapestHotelForWeekdays.getWeekDayRate() * numberOfDays);
         System.out.println(numberOfDays + " days stayed in hotel ");
-        System.out.println("Total Rate for " + numberOfDays + " day's during weekday is : " + hotels.getTotalPrice() );
+        System.out.println("Total Rate for " + numberOfDays + " day's during weekday is : " + hotels.getTotalPrice());
         System.out.println(" ");
     }
 
@@ -43,13 +44,28 @@ public class HotelReservationSystem {
         LocalDate endDateFormat = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
         int numberOfDays = endDateFormat.getDayOfMonth() - startDateFormat.getDayOfMonth();
         Hotels cheapestHotelForWeekend = hotelsList.stream().min(Comparator.comparing(Hotels::getWeekendRate)).orElse(null);
-        System.out.println("Cheapest Hotel is :");
+        System.out.println("Cheapest Hotel for weekend is :");
         System.out.println(cheapestHotelForWeekend);
         Hotels hotels = new Hotels();
         hotels.setHotelName(cheapestHotelForWeekend.getHotelName());
         hotels.setTotalPrice(cheapestHotelForWeekend.getWeekendRate() * numberOfDays);
         System.out.println(numberOfDays + " days stayed in hotel ");
-        System.out.println("Total Rate for " + numberOfDays + " day's during weekend is : " + hotels.getTotalPrice() );
+        System.out.println("Total Rate for " + numberOfDays + " day's during weekend is : " + hotels.getTotalPrice());
+        System.out.println(" ");
+
+    }
+
+    public static void cheapestBestRatedHotel(String startDate, String endDate) {
+        LocalDate startDateFormat = LocalDate.parse(startDate, DateTimeFormatter.ISO_DATE);
+        LocalDate endDateFormat = LocalDate.parse(endDate, DateTimeFormatter.ISO_DATE);
+        int numberOfDays = endDateFormat.getDayOfMonth() - startDateFormat.getDayOfMonth();
+        Hotels cheapestBestRatedHotel = hotelsList.stream().filter(n -> n.hotelRatings > 4).min(Comparator.comparing(Hotels::getHotelRatings)).orElse(null);
+        System.out.println("Cheapest best rated Hotel is :");
+        System.out.println(cheapestBestRatedHotel);
+        Hotels hotels = new Hotels();
+        hotels.setHotelName(cheapestBestRatedHotel.getHotelName());
+        hotels.setTotalPrice(cheapestBestRatedHotel.getWeekendRate() * numberOfDays);
+        System.out.println("Total Rate for " + numberOfDays + " day's during weekend is : " + hotels.getTotalPrice());
 
     }
 }

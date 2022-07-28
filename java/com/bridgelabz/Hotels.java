@@ -12,10 +12,11 @@ public class Hotels {
     }
 
 
-    public Hotels(String hotelName, int weekDayRate, int weekendRate, int hotelRatings) {
+    public Hotels(String hotelName, int weekDayRate, int weekendRate,int totalPrice, int hotelRatings) {
         this.hotelName = hotelName;
         this.weekDayRate=weekDayRate;
         this.weekendRate=weekendRate;
+        this.totalPrice=totalPrice;
         this.hotelRatings=hotelRatings;
     }
 
